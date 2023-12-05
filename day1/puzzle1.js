@@ -1,36 +1,18 @@
-import { readInput } from '../common.js';
+import { readInputToArrayOfStrings, extractNumbersFromString } from '../common.js';
 
-const input = readInput('./day1/input1.txt');
+const input = readInputToArrayOfStrings('./day1/input1.txt');
 
 let sum = 0;
 
 input.forEach((line) => {
-  let firstNumber;
-  let lastNumber;
-
-  for (let i = 0; i < line.length; i++) {
-    const numericValue = Number(line.charAt(i));
-
-    if (isNaN(numericValue)) {
-      return;
-    }
-
-    console.log('Numeric V:', numericValue);
-
-    if (typeof firstNumber === 'undefined') {
-      firstNumber = numericValue;
-    }
-
-    lastNumber = numericValue;
+  const numbers = extractNumbersFromString(line)
+  
+  if(numbers.length === 0){
+    return
   }
-
-  if (typeof firstNumber === 'undefined') {
-    firstNumber = 0;
-  }
-
-  if (typeof lastNumber === 'undefined') {
-    lastNumber = 0;
-  }
+  
+  const firstNumber = numbers[0];
+  const lastNumber = numbers[numbers.length-1]
 
   sum = sum + Number(firstNumber.toString() + lastNumber.toString());
 });
